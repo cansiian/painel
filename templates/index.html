@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Painel de controle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>:root{color-scheme:light dark;--bg:#F5F6F8;--surface:#fff;--sub:#F9FAFB;--line:#E4E7EC;--text:#101828;--mute:#667085;--brand:#3454D1;--on:#fff;--brand-soft:#EEF2FF;--amber:#F79009;--wa:#0C8F55;--red:#D92D20;--sh:0 1px 2px #1018280f,0 1px 3px #1018281a}
+@media(prefers-color-scheme:dark){:root{--bg:#0B1020;--surface:#131A2E;--sub:#182038;--line:#262F4A;--text:#EEF1F8;--mute:#98A2B8;--brand:#8CA0FF;--on:#0B1020;--brand-soft:#1E2850;--red:#F97066;--sh:none}}
+*{box-sizing:border-box}
+body{margin:0;font:14.5px/1.55 'Plus Jakarta Sans',system-ui,sans-serif;color:var(--text);background:var(--bg);display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100vh;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;line-height:1.2;letter-spacing:-.02em}
+.side{background:var(--surface);border-right:1px solid var(--line);padding:22px 14px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;padding:0 10px 22px}
+.logo{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#3454D1,#7C5CFC)}
+#nav button{display:flex;justify-content:space-between;align-items:center;width:100%;background:none;border:0;color:var(--mute);font:inherit;font-weight:600;padding:9px 10px;border-radius:8px;cursor:pointer;margin-bottom:2px}
+#nav button:hover{background:var(--sub);color:var(--text)}
+#nav button.on{background:var(--brand-soft);color:var(--brand)}
+.ni{display:flex;align-items:center;gap:10px}
+.ni svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#nav i{font-style:normal;background:var(--red);color:#fff;border-radius:10px;padding:0 7px;font-size:12px}
+.foot{margin:auto 0 0;padding:0 10px;font-size:13px}.foot a{color:var(--mute);font-weight:600;text-decoration:none}.foot a:hover{color:var(--text)}
+main{padding:30px 40px 48px;max-width:1320px;width:100%}
+.top{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:26px}
+.top h1{font-size:28px}.top p{margin:4px 0 0;color:var(--mute)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--sh)}
+.pad{padding:16px 18px}
+.goal{display:flex;align-items:center;gap:14px;padding:12px 20px 12px 14px}
+.goal>div{display:flex;flex-direction:column;line-height:1.3}
+.goal b{font-size:22px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.goal span,.goal a{font-size:12.5px;color:var(--mute)}.goal a{color:var(--brand);text-decoration:none;font-weight:600}
+#gr{transition:stroke-dashoffset .6s,stroke .3s}
+button,input,select,textarea{font:inherit;color:inherit}
+input,select,textarea{border:1px solid var(--line);border-radius:8px;padding:9px 12px;background:var(--surface);max-width:100%}
+textarea{width:100%;min-height:80px}
+input::placeholder,textarea::placeholder{color:var(--mute)}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+#f input{flex:1;min-width:200px}
+.btn{background:var(--brand);color:var(--on);border:1px solid transparent;border-radius:8px;padding:8px 14px;cursor:pointer;font-weight:600;text-decoration:none;display:inline-block;transition:filter .15s,background .15s}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:var(--surface);color:var(--text);border-color:var(--line)}.btn.ghost:hover{background:var(--sub);filter:none}
+.btn.wa{background:var(--wa);color:#fff}.btn.del{background:var(--surface);color:var(--red);border-color:var(--line)}
+.btn:disabled{opacity:.5;cursor:wait}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.list{overflow:hidden}.list:empty{display:none}
+.list>div{display:flex;gap:14px;justify-content:space-between;align-items:center;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid var(--line)}
+.list>div:last-child{border:0}.list>div:hover{background:var(--sub)}
+.list b{display:block}.mute{color:var(--mute);font-size:13.5px}
+.who{display:flex;align-items:center;gap:12px;min-width:0}
+.av{width:38px;height:38px;border-radius:10px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-weight:700;font-size:13px;font-style:normal;flex:none}
+.empty{margin:0 0 16px;padding:40px 20px;text-align:center;color:var(--mute);border:1px dashed var(--line);border-radius:12px}
+.board{display:grid;grid-auto-flow:column;grid-auto-columns:250px;gap:14px;overflow-x:auto;padding-bottom:10px}
+.col{background:var(--sub);border:1px solid var(--line);border-radius:12px;padding:12px;min-height:160px}
+.col h3{font-size:14px;margin-bottom:12px;display:flex;gap:8px;align-items:center}
+.col h3 span{width:8px;height:8px;border-radius:50%}
+.col h3 small{background:var(--line);border-radius:10px;padding:0 8px;margin-left:auto}
+.card{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--c,var(--line));border-radius:8px;padding:11px 12px;margin-bottom:8px;cursor:pointer;display:block;width:100%;text-align:left;box-shadow:var(--sh);transition:transform .15s,box-shadow .15s}
+.card:hover{transform:translateY(-1px);box-shadow:0 4px 14px #10182824}.late{color:var(--red);font-weight:600}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:16px}
+.kpis>div{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--sh);padding:18px 20px;color:var(--mute);font-size:13.5px}
+.kpis b{display:block;font-size:32px;letter-spacing:-.03em;color:var(--text);font-variant-numeric:tabular-nums}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.hb{display:grid;grid-template-columns:70px 1fr 30px;gap:10px;align-items:center;margin:8px 0}
+.hb>div{background:var(--sub);border-radius:4px}.hb div div{height:10px;background:var(--brand);border-radius:4px;min-width:2px}
+.hb span:last-child{text-align:right}
+dialog{border:1px solid var(--line);border-radius:16px;padding:26px;width:min(580px,94vw);max-height:90vh;background:var(--surface);color:var(--text);box-shadow:0 24px 60px #10182840}
+dialog::backdrop{background:#0B102099;backdrop-filter:blur(2px)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{display:block;font-size:13px;font-weight:500;color:var(--mute)}label input,label select{width:100%;margin-top:4px;color:var(--text)}
+.note{border-left:3px solid var(--line);padding:2px 10px;margin:8px 0}
+@media(max-width:860px){body{grid-template-columns:1fr}.side{position:static;height:auto;border:0;border-bottom:1px solid var(--line);padding:14px}#nav{display:flex;flex-wrap:wrap;gap:4px}#nav button{width:auto}.foot{display:none}main{padding:20px 16px}.grid2,.two{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}</style></head><body>
+<aside class="side"><div class="brand"><span class="logo"></span>Painel de controle</div><div id="nav"></div><p class="foot"><a href="/logout">Sair da conta</a></p></aside>
+<main>
+<header class="top"><div><h1 id="pt"></h1><p id="ps"></p></div><div class="goal panel"><svg width="54" height="54" viewBox="0 0 54 54"><circle cx="27" cy="27" r="22" fill="none" stroke="var(--line)" stroke-width="6"/><circle id="gr" cx="27" cy="27" r="22" fill="none" stroke="var(--amber)" stroke-width="6" stroke-linecap="round" stroke-dasharray="138.2" stroke-dashoffset="138.2" transform="rotate(-90 27 27)"/></svg><div><b id="gt"></b><span>abordadas hoje</span><a href="#" id="gm">alterar meta</a></div></div></header>
+<div id="v"></div>
+</main>
+<dialog id="dlg"></dialog>
+{% raw %}<script>
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+const ST=[['novo','Novo','#8A94A6'],['contactado','Contactado','#2D5BD0'],['respondeu','Respondeu','#7B4FD0'],['negociando','Negociando','#F0A92B'],['fechado','Fechado','#1E9E5A'],['perdido','Perdido','#C23B3B']];
+const VIEWS=[['buscar','Buscar empresas','Encontre negócios sem site e comece a prospectar.','M21 21l-4.3-4.3M10.5 18a7.5 7.5 0 110-15 7.5 7.5 0 010 15z'],['crm','CRM','Acompanhe cada lead até o fechamento.','M4 5h4v14H4zM10 5h4v9h-4zM16 5h4v6h-4z'],['follow','Follow-ups','Retornos agendados para você não perder nenhum lead.','M12 7v5l3 2M12 21a9 9 0 110-18 9 9 0 010 18z'],['tpl','Templates','Mensagens prontas com campos automáticos.','M4 5h16v11H8l-4 4zM8 9h8M8 12h5'],['kpi','Desempenho','Seus números de prospecção.','M4 20V10M10 20V4M16 20v-7M22 20H2']];
+let leads=[],tpls=[],found=[],ramo='',cur='buscar',busy=false;
+const api=async(u,m='GET',b)=>{const r=await fetch(u,{method:m,headers:{'Content-Type':'application/json'},body:b?JSON.stringify(b):undefined});if(r.status==401){location='/login';throw new Error('Sessão expirada.')}const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.erro||'Algo deu errado. Tente de novo.');return j};
+const today=()=>new Date().toLocaleDateString('sv'),nowL=()=>new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,16);
+const notas=l=>JSON.parse(l.notas||'[]'),meta=()=>+localStorage.meta||30,fmt=d=>new Date(d).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'});
+const money=v=>(v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const ini=n=>(n||'?').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+const fill=(t,l)=>t.replace(/{{nome_empresa}}/g,l.nome).replace(/{{ramo_atividade}}/g,l.ramo||'seu ramo').replace(/{{endereco}}/g,l.endereco||'');
+const due=()=>leads.filter(l=>l.followup&&l.followup<=nowL()&&!['fechado','perdido'].includes(l.status));
+const wa=(l,tid)=>{const t=tpls.find(x=>x.id==tid)||tpls.find(x=>x.canal=='whatsapp');return l.whatsapp?l.whatsapp+'?text='+encodeURIComponent(t?fill(t.corpo,l):''):null};
+async function load(){[leads,tpls]=await Promise.all([api('/api/leads'),api('/api/templates')]);render()}
+async function upd(id,d,reopen=true){await api('/api/leads/'+id,'PATCH',d);await load();if(reopen&&$('#dlg').open)lead(id)}
+function render(){
+ const n=leads.filter(l=>(l.contactado_em||'').startsWith(today())).length,m=meta();
+ $('#gt').textContent=`${n}/${m}`;const g=$('#gr');g.style.strokeDashoffset=138.2*(1-Math.min(1,n/m));g.style.stroke=n>=m?'var(--wa)':'var(--amber)';const vw=VIEWS.find(x=>x[0]==cur);$('#pt').textContent=vw[1];$('#ps').textContent=vw[2];
+ $('#nav').innerHTML=VIEWS.map(([k,t,,ic])=>`<button class="${k==cur?'on':''}" onclick="go('${k}')"><span class="ni"><svg viewBox="0 0 24 24"><path d="${ic}"/></svg>${t}</span>${k=='follow'&&due().length?`<i>${due().length}</i>`:''}</button>`).join('');
+ V[cur]()}
+const go=k=>{cur=k;render()};
+$('#gm').onclick=e=>{e.preventDefault();const v=+prompt('Quantas empresas abordar por dia?',meta());if(v>0){localStorage.meta=v;render()}};
+const V={
+buscar(){$('#v').innerHTML=`<form id="f" class="row panel pad" style="margin:0 0 16px"><input id="p" placeholder="Profissão ou ramo (ex.: contador)" required size="28"><input id="c" placeholder="Cidade (ex.: Torres)" required><button class="btn" id="bs">Buscar</button>${found.length?'<button type="button" class="btn ghost" onclick="xls()">Baixar Excel</button>':''}</form>
+ <p class="mute" id="msg">${found.length?found.length+' empresas sem site encontradas.':'A busca leva cerca de 30 segundos. Só aparecem empresas que não têm site no Google Maps.'}</p>
+ <div class="list panel">${found.map((e,i)=>`<div><span class="who"><i class="av">${ini(e.Nome)}</i><span><b>${esc(e.Nome)}</b><span class="mute">${esc(e.Telefone)} · ${esc(e['Endereço'])}</span></span></span><span class="row"><button class="btn ghost" onclick="fnd(${i})">Ver mais</button>${e.WhatsApp?`<button class="btn wa" onclick="addF(${i},true)">WhatsApp</button>`:''}<button class="btn ghost" onclick="addF(${i})">Adicionar ao CRM</button></span></div>`).join('')}</div>`;
+ $('#f').onsubmit=async e=>{e.preventDefault();const b=$('#bs');b.disabled=true;b.textContent='Buscando…';ramo=$('#p').value;try{found=await api('/api/buscar','POST',{profissao:ramo,cidade:$('#c').value});render()}catch(x){$('#msg').textContent='Não foi possível concluir a busca. Tente de novo em instantes. Detalhe: '+x.message.split('\n')[0];b.disabled=false;b.textContent='Buscar'}}},
+crm(){$('#v').innerHTML=`${leads.length?'':'<p class="empty">Nenhuma empresa ainda. Busque empresas e adicione ao CRM para acompanhar cada lead.</p>'}<div class="board">${ST.map(([k,t,c])=>{const L=leads.filter(l=>l.status==k);return`<div class="col"><h3><span style="background:${c}"></span>${t} <small class="mute">${L.length}</small></h3>${L.map(l=>`<button class="card" style="--c:${c}" onclick="lead(${l.id})"><b>${esc(l.nome)}</b><span class="mute">${esc(l.telefone)}</span>${l.valor?`<br><span>${money(l.valor)}</span>`:''}${l.followup?`<br><span class="mute ${l.followup<=nowL()?'late':''}">Voltar ${fmt(l.followup)}</span>`:''}</button>`).join('')}</div>`}).join('')}</div>`},
+follow(){const L=leads.filter(l=>l.followup).sort((a,b)=>a.followup.localeCompare(b.followup));$('#v').innerHTML=`<div class="row" style="justify-content:space-between;margin-bottom:10px"><span class="mute">Ordenados por data e hora.</span>${'Notification'in window&&Notification.permission!='granted'?'<button class="btn ghost" onclick="Notification.requestPermission().then(render)">Ativar alertas no navegador</button>':''}</div>${L.length?'':'<p class="empty">Nenhum retorno agendado. Abra um lead no CRM e defina data e hora para voltar a falar.</p>'}<div class="list panel">${L.map(l=>`<div><span><b>${esc(l.nome)}</b><span class="${l.followup<=nowL()?'late':'mute'}">${l.followup<=nowL()?'Atrasado · ':''}${fmt(l.followup)}</span></span><button class="btn ghost" onclick="lead(${l.id})">Abrir lead</button></div>`).join('')}</div>`},
+tpl(){$('#v').innerHTML=`<p class="mute">Use {{nome_empresa}}, {{ramo_atividade}} e {{endereco}}. Eles são preenchidos automaticamente.</p><form id="tf" class="panel pad" style="margin:14px 0;max-width:640px"><div class="row" style="margin-bottom:8px"><select id="tc"><option value="whatsapp">WhatsApp</option><option value="email">E-mail</option><option value="dm">Mensagem direta</option></select><input id="tt" placeholder="Título" required style="flex:1"></div><textarea id="tb" placeholder="Texto da mensagem" required></textarea><button class="btn" style="margin-top:8px">Salvar template</button></form><div class="list panel">${tpls.map(t=>`<div><span style="max-width:600px"><b>${esc(t.titulo)} <small class="mute">${esc(t.canal)}</small></b><span class="mute">${esc(t.corpo)}</span></span><button class="btn del" onclick="api('/api/templates/${t.id}','DELETE').then(load)">Excluir</button></div>`).join('')}</div>`;
+ $('#tf').onsubmit=async e=>{e.preventDefault();await api('/api/templates','POST',{canal:$('#tc').value,titulo:$('#tt').value,corpo:$('#tb').value});load()}},
+kpi(){const c=leads.filter(l=>l.status!='novo'),r=c.filter(l=>['respondeu','negociando','fechado'].includes(l.status)).length,f=leads.filter(l=>l.status=='fechado').length,p=x=>c.length?Math.round(x/c.length*100)+'%':'–';
+ const dias=[...Array(7)].map((_,i)=>{const d=new Date(Date.now()-(6-i)*864e5).toLocaleDateString('sv');return[d.slice(5),leads.filter(l=>(l.contactado_em||'').startsWith(d)).length]}),mx=Math.max(1,...dias.map(d=>d[1]));
+ $('#v').innerHTML=`<div class="kpis"><div><b>${p(r)}</b>taxa de resposta</div><div><b>${p(f)}</b>conversão em vendas</div><div><b>${c.length}</b>empresas contactadas</div><div><b>${money(leads.filter(l=>l.status=='negociando').reduce((s,l)=>s+(l.valor||0),0))}</b>em negociação</div></div>
+ <div class="two"><div class="panel pad"><h3 style="margin-bottom:8px">Contactos por dia</h3>${dias.map(([d,n])=>`<div class="hb"><span class="mute">${d}</span><div><div style="width:${n/mx*100}%"></div></div><span>${n}</span></div>`).join('')}
+ </div><div class="panel pad"><h3 style="margin-bottom:8px">Funil</h3>${ST.map(([k,t])=>{const n=leads.filter(l=>l.status==k).length;return`<div class="hb"><span class="mute">${t}</span><div><div style="width:${leads.length?n/leads.length*100:0}%"></div></div><span>${n}</span></div>`}).join('')}</div></div>`}};
+const D=h=>{$('#dlg').innerHTML=h;if(!$('#dlg').open)$('#dlg').showModal()};
+const norm=(e,s)=>({nome:e.Nome,telefone:e.Telefone,endereco:e['Endereço'],whatsapp:e.WhatsApp,ramo,status:s});
+function fnd(i){const e=found[i];D(`<h2>${esc(e.Nome)}</h2><p>${esc(e.Telefone)}<br>${esc(e['Endereço'])}</p><p class="mute">Sem site no Google Maps.</p><div class="row"><a class="btn ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/search/${encodeURIComponent(e.Nome+' '+e['Endereço'])}">Ver no Google Maps</a><button class="btn" onclick="addF(${i})">Adicionar ao CRM</button><button class="btn ghost" onclick="$('#dlg').close()">Fechar</button></div>`)}
+async function addF(i,chat){const e=found[i];try{const r=await api('/api/leads','POST',norm(e,chat?'contactado':'novo'));await load();if(chat){await load();const l=leads.find(x=>x.id==r.id);open(wa(l),'_blank')}$('#dlg').open&&$('#dlg').close()}catch(x){alert(x.message)}}
+function lead(id){const l=leads.find(x=>x.id==id);if(!l)return;const W=tpls.filter(t=>t.canal=='whatsapp');
+ D(`<h2>${esc(l.nome)}</h2><p class="mute">${esc(l.telefone)} · ${esc(l.endereco)}</p>
+ <div class="grid2"><label>Situação<select onchange="upd(${id},{status:this.value})">${ST.map(([k,t])=>`<option value="${k}" ${k==l.status?'selected':''}>${t}</option>`).join('')}</select></label>
+ <label>Valor estimado (R$)<input type="number" min="0" value="${l.valor||0}" onchange="upd(${id},{valor:+this.value})"></label>
+ <label>Voltar a contactar<input type="datetime-local" value="${l.followup||''}" onchange="upd(${id},{followup:this.value})"></label>
+ <label>Mensagem<select id="ts">${W.map(t=>`<option value="${t.id}">${esc(t.titulo)}</option>`).join('')}</select></label></div>
+ <div class="row" style="margin:14px 0">${l.whatsapp?`<button class="btn wa" onclick="sendWA(${id})">Abrir WhatsApp</button>`:''}<button class="btn ghost" onclick="$('#dlg').close()">Fechar</button><button class="btn del" onclick="if(confirm('Excluir este lead?'))api('/api/leads/${id}','DELETE').then(()=>{$('#dlg').close();load()})">Excluir</button></div>
+ <h3>Notas e objeções</h3>${notas(l).map(n=>`<div class="note"><span class="mute">${fmt(n.d)}</span><br>${esc(n.t)}</div>`).join('')||'<p class="mute">Registre aqui objeções (“achou caro”) e ligações feitas.</p>'}
+ <textarea id="nt" placeholder="Nova nota"></textarea><button class="btn" style="margin-top:8px" onclick="addN(${id})">Salvar nota</button>`)}
+const addN=id=>{const t=$('#nt').value.trim();if(!t)return;const l=leads.find(x=>x.id==id);upd(id,{notas:JSON.stringify([{d:new Date().toISOString(),t},...notas(l)])})};
+async function sendWA(id){const l=leads.find(x=>x.id==id);open(wa(l,$('#ts').value),'_blank');if(l.status=='novo')upd(id,{status:'contactado'})}
+const xls=async()=>{const r=await fetch('/api/download',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(found)});const a=document.createElement('a');a.href=URL.createObjectURL(await r.blob());a.download='leads_sem_site.xlsx';a.click()};
+const fired=new Set();setInterval(()=>{due().forEach(l=>{const k=l.id+l.followup;if(!fired.has(k)){fired.add(k);if('Notification'in window&&Notification.permission=='granted')new Notification('Hora de voltar a contactar',{body:l.nome});render()}})},30000);
+load();
+</script>{% endraw %}</body></html>

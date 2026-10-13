@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Entrar · Painel de controle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light dark;--bg:#F5F6F8;--surface:#fff;--line:#D0D5DD;--text:#101828;--mute:#667085;--brand:#3454D1;--on:#fff;--red:#B42318;--red-soft:#FEF3F2}
+@media(prefers-color-scheme:dark){:root{--bg:#0B1020;--surface:#131A2E;--line:#323C5C;--text:#EEF1F8;--mute:#98A2B8;--brand:#8CA0FF;--on:#0B1020;--red:#FDA29B;--red-soft:#2A1618}}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr;font:15px/1.55 'Plus Jakarta Sans',system-ui,sans-serif;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased}
+.hero{background:linear-gradient(145deg,#1F2F8F,#3454D1 55%,#7C5CFC);color:#fff;padding:48px 56px;display:flex;flex-direction:column;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px}
+.logo{width:28px;height:28px;border-radius:8px;background:#ffffff33;border:1px solid #ffffff55}
+.hero h2{font-size:38px;line-height:1.15;letter-spacing:-.03em;margin:0 0 18px;max-width:440px}
+.hero ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;color:#E0E7FF}
+.hero li::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#F79009;margin-right:12px}
+.hero small{color:#C7D2FE}
+main{display:grid;place-items:center;padding:32px 20px}
+form{width:100%;max-width:380px}
+.mob{display:none}
+h1{font-size:28px;letter-spacing:-.02em;margin:0 0 6px}
+.sub{color:var(--mute);margin:0 0 26px}
+label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.f{margin-bottom:16px}
+input{width:100%;font:inherit;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:11px 12px}
+.pw{position:relative}.pw input{padding-right:84px}
+.pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:0;color:var(--brand);font:inherit;font-weight:600;font-size:13px;cursor:pointer;padding:6px 8px;border-radius:6px}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.go{width:100%;background:var(--brand);color:var(--on);border:0;border-radius:8px;padding:12px;font:inherit;font-weight:700;cursor:pointer;margin-top:6px}
+.go:hover{filter:brightness(1.08)}.go:disabled{opacity:.6;cursor:wait}
+.err{background:var(--red-soft);color:var(--red);border-radius:8px;padding:10px 12px;margin-bottom:16px;font-size:14px;font-weight:500}
+@media(max-width:860px){body{grid-template-columns:1fr}.hero{display:none}.mob{display:flex;align-items:center;gap:10px;font-weight:700;margin-bottom:28px}.mob .logo{background:linear-gradient(135deg,#3454D1,#7C5CFC);border:0}}
+</style></head><body>
+<section class="hero">
+  <div class="brand"><span class="logo"></span>Painel de controle</div>
+  <div><h2>Prospecte empresas sem site e feche mais negócios.</h2>
+  <ul><li>Busca de empresas sem site no Google Maps</li><li>CRM com acompanhamento de cada lead</li><li>Templates, follow-ups e metas diárias</li></ul></div>
+  <small>Acesso restrito.</small>
+</section>
+<main>
+<form method="post" action="/login" id="lf">
+  <div class="mob"><span class="logo"></span>Painel de controle</div>
+  <h1>Entrar</h1><p class="sub">Acesse o seu painel de prospecção.</p>
+  {% if erro %}<div class="err" role="alert">{{ erro }}</div>{% endif %}
+  <div class="f"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="username" required autofocus></div>
+  <div class="f"><label for="senha">Senha</label><div class="pw"><input id="senha" name="senha" type="password" autocomplete="current-password" required><button type="button" id="tg" aria-label="Mostrar senha">Mostrar</button></div></div>
+  <button class="go" id="go">Entrar</button>
+</form>
+</main>
+<script>
+const s=document.getElementById('senha'),t=document.getElementById('tg');
+t.onclick=()=>{const h=s.type=='password';s.type=h?'text':'password';t.textContent=h?'Ocultar':'Mostrar';t.setAttribute('aria-label',h?'Ocultar senha':'Mostrar senha')};
+document.getElementById('lf').onsubmit=()=>{const b=document.getElementById('go');b.disabled=true;b.textContent='Entrando…'};
+</script>
+</body></html>

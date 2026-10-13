@@ -1,0 +1,6 @@
+.env
+painel.db
+venv/
+__pycache__/
+*.pyc
+.git
